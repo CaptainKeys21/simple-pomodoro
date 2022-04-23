@@ -98,4 +98,60 @@ body {
   margin: auto;
 }
 
+#settings {
+  background-color: rgba(51, 51, 51, 0.5);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  & div {
+    width: 360px;
+    color: #333333;
+    background-color: #FFFF;
+    margin: {
+      top: 80px;
+      left: auto;
+      right: auto;
+    };
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & label {
+      font-weight: bold;
+    }
+
+    & input {
+      height: 24px;
+      font-size: 1rem;
+      border: 1px solid #666666;
+      border-radius: 4px;
+      margin: {
+        bottom: 12px;
+      };
+
+      &:focus {
+        border-color: #333333;
+      }
+    }
+
+    & button {
+      font-size: 1rem;
+      background-color: #4aff77;
+      padding: 6px;
+      border-radius: 4px;
+      margin: {
+        bottom: 24px;
+      };
+      &:hover {
+        box-shadow: 1px 1px 20px rgba($color: #000000, $alpha: 0.4);
+      }
+    }
+  }
+}
+
+.none {
+  display: none;
+}
 
