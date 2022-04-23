@@ -5,9 +5,6 @@ import timer from './timer';
 export class Pomodoro {
   private readonly _timer: timer;
   private readonly btnMain: HTMLButtonElement;
-  private readonly btnConfigs: HTMLButtonElement;
-  private readonly settingsDisplay: HTMLDivElement;
-  private readonly btnSetBack: HTMLButtonElement;
   private readonly settings: Settings;
   private readonly _state: State;
   private pomoCount = 0;
@@ -17,10 +14,7 @@ export class Pomodoro {
     this.settings = Settings.instance;
     this._timer = new timer(this.settings.timePomo);
     this._state = new State();
-    this.settingsDisplay = document.getElementById('settings') as HTMLDivElement;
     this.btnMain = document.getElementById('btn-main-toggle') as HTMLButtonElement;
-    this.btnConfigs = document.getElementById('btn-configs') as HTMLButtonElement;
-    this.btnSetBack = document.getElementById('btn-SetBack') as HTMLButtonElement;
     this.addEvents();
   }
 
@@ -28,20 +22,17 @@ export class Pomodoro {
     document.addEventListener('onComplete', () => {
       this.next();
     });
+
+    document.addEventListener('onUpdateSettings', () => {
+      this.changetimerState(this._state.state);
+    });
+
     document.addEventListener('onStateChange', (e) => {
       this.changetimerState((<CustomEvent>e).detail);
     });
 
     this.btnMain.addEventListener('click', () => {
       this.toggletimer();
-    });
-
-    this.btnConfigs.addEventListener('click', () => {
-      this.settingsDisplay.classList.remove('none');
-    });
-
-    this.btnSetBack.addEventListener('click', () => {
-      this.settingsDisplay.classList.add('none');
     });
   }
 

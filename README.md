@@ -6,11 +6,12 @@ Feito com typescript, sass e electron.
 
 ### Features Atuais:
 
-- Apenas a funcionalidade principal de um Pomodoro;
+- Funcionalidade principal de um Pomodoro;
+- Menu de Configuração;
 
 ### Coisas a Fazer:
 
 - Adcionar Som na troca de estados;
-- Menu de configurações;
+- Menu de configurações; :heavy_check_mark:
 - Execução em Segundo plano;
 - Notificações em segundo plano;

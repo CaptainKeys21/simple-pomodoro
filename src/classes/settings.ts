@@ -4,10 +4,27 @@ export default class Settings {
   private _timeShort: number;
   private _timeLong: number;
 
+  private _inputPomo: HTMLInputElement;
+  private _inputShort: HTMLInputElement;
+  private _inputLong: HTMLInputElement;
+
+  private readonly btnConfigs: HTMLButtonElement;
+  private readonly settingsDisplay: HTMLDivElement;
+  private readonly _saveButton: HTMLInputElement;
+
   private constructor() {
-    this._timePomo = 5;
-    this._timeShort = 5;
-    this._timeLong = 5;
+    this._inputPomo = document.getElementById('cPomotime') as HTMLInputElement;
+    this._inputShort = document.getElementById('cShorttime') as HTMLInputElement;
+    this._inputLong = document.getElementById('cLongtime') as HTMLInputElement;
+
+    this.btnConfigs = document.getElementById('btn-configs') as HTMLButtonElement;
+    this._saveButton = document.getElementById('btn-SetBack') as HTMLInputElement;
+    this.settingsDisplay = document.getElementById('settings') as HTMLDivElement;
+
+    this._timePomo = Number(this._inputPomo.value);
+    this._timeShort = Number(this._inputShort.value);
+    this._timeLong = Number(this._inputLong.value);
+    this.addEvents();
   }
 
   static get instance(): Settings {
@@ -16,6 +33,24 @@ export default class Settings {
     }
 
     return Settings._instance;
+  }
+
+  private addEvents() {
+    this.btnConfigs.addEventListener('click', () => {
+      this.settingsDisplay.classList.remove('none');
+    });
+
+    this._saveButton.addEventListener('click', () => {
+      this.saveSettings();
+      this.settingsDisplay.classList.add('none');
+      document.dispatchEvent(new CustomEvent('onUpdateSettings'));
+    });
+  }
+
+  public saveSettings(): void {
+    this._timePomo = Number(this._inputPomo.value);
+    this._timeShort = Number(this._inputShort.value);
+    this._timeLong = Number(this._inputLong.value);
   }
 
   get timePomo(): number {
