@@ -60,9 +60,11 @@ body {
 @each $state, $color in $mainColors {
   ##{$state} {
     background-color: $color;
+    transition: background-color 0.5s linear;
 
     & #container {
       background-color: color.adjust($color, $lightness: +15%, $alpha: -0.4);
+      transition: background-color 0.5s linear;
     }
   }
 
