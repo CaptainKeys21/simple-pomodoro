@@ -48,7 +48,7 @@ export class Pomodoro {
     }
   }
 
-  private changetimerState(state: string) {
+  public changetimerState(state: string) {
     switch (state) {
       case 'pomodoro': {
         this._timer.time = this.settings.timePomo;
