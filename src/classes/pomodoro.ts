@@ -1,3 +1,4 @@
+import { IStateArgs } from '../types/states';
 import Settings from './settings';
 import State from './state';
 import timer from './timer';
@@ -36,7 +37,7 @@ export class Pomodoro {
     });
   }
 
-  private toggletimer(): void {
+  public toggletimer(): void {
     if (this._timer.isRunning) {
       this.btnMain.innerText = 'Continuar';
       this._timer.timerStop();
@@ -88,5 +89,9 @@ export class Pomodoro {
       this.changetimerState(this._state.state);
       this._timer.timerStart();
     }
+  }
+
+  public changeStateHandler(string: IStateArgs): void {
+    this._state.state = string;
   }
 }

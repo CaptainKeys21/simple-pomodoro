@@ -6,8 +6,8 @@
   "scripts": {
     "start": "electron .",
     "build": "tsc && cp -fu ./src/index.html ./build && sass src/style:build/style",
-    "dev": "tsc --watch & sass --watch src/style:build/style & chokidar '**/*.html'  -c 'cp -fu ./src/index.html ./build'",
-    "postdev": "cp -fur ./src/images ./build"
+    "predev": "cp -fur ./src/images ./build",
+    "dev": "tsc --watch & sass --watch src/style:build/style & chokidar '**/*.html'  -c 'cp -fu ./src/index.html ./build'"
   },
   "author": "Captain Keys",
   "license": "MIT",
