@@ -1,7 +1,8 @@
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
+import ISettings from '../types/ISettings';
 
-export default class Settings {
+export default class Settings implements ISettings {
   private static _instance: Settings;
   private static _filePath = resolve(__dirname, '..', 'settings.json');
 
@@ -38,6 +39,9 @@ export default class Settings {
     this._inputLong.value = String(this._timeLong);
     this._inputShort.value = String(this._timeShort);
   }
+  get instance(): ISettings {
+    throw new Error('Method not implemented.');
+  }
 
   private loadData(): void {
     const data = JSON.parse(readFileSync(Settings._filePath, 'utf-8'));
@@ -71,7 +75,7 @@ export default class Settings {
     }
   }
 
-  static get instance(): Settings {
+  static get instance() {
     if (!Settings._instance) {
       Settings._instance = new Settings();
     }
@@ -92,33 +96,33 @@ export default class Settings {
     });
   }
 
-  public saveSettings(): void {
+  public saveSettings() {
     this._timePomo = Number(this._inputPomo.value);
     this._timeShort = Number(this._inputShort.value);
     this._timeLong = Number(this._inputLong.value);
   }
 
-  get timePomo(): number {
+  get timePomo() {
     return this._timePomo;
   }
 
-  set timePomo(time: number) {
+  set timePomo(time) {
     this._timePomo = time;
   }
 
-  get timeShort(): number {
+  get timeShort() {
     return this._timeShort;
   }
 
-  set timeShort(time: number) {
+  set timeShort(time) {
     this._timeShort = time;
   }
 
-  get timeLong(): number {
+  get timeLong() {
     return this._timeLong;
   }
 
-  set timeLong(time: number) {
+  set timeLong(time) {
     this._timeLong = time;
   }
 }

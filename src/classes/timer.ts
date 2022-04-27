@@ -4,8 +4,8 @@ import { secondsIntime } from '../utils/secondsIntime';
 export default class timer implements Itimer {
   private _isRunning = false;
   private _time: number;
-  private readonly _display;
-  private intervaltimer: NodeJS.Timeout | any;
+  private readonly _display: HTMLSpanElement;
+  private _intervaltimer: NodeJS.Timeout | null = null;
 
   constructor(time: number) {
     this._time = time;
@@ -15,7 +15,7 @@ export default class timer implements Itimer {
 
   public timerStart(): void {
     this._isRunning = true;
-    this.intervaltimer = setInterval(() => {
+    this._intervaltimer = setInterval(() => {
       this._display.innerHTML = secondsIntime(this._time);
       this._time--;
       if (this._time < 0) {
@@ -26,8 +26,11 @@ export default class timer implements Itimer {
   }
 
   public timerStop(): void {
-    clearInterval(this.intervaltimer);
-    this._isRunning = false;
+    if (typeof this._intervaltimer === 'number') {
+      console.log('A');
+      clearInterval(this._intervaltimer);
+      this._isRunning = false;
+    }
   }
 
   set time(time: number) {
@@ -35,7 +38,7 @@ export default class timer implements Itimer {
     this._time = time;
   }
 
-  get isRunning(): boolean {
+  get isRunning() {
     return this._isRunning;
   }
 }

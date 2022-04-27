@@ -1,9 +1,7 @@
-//export default interface IPomodoro {}
+import { IStateArgs } from './IStates';
 
-export type AppButtons = {
-  btnMain: HTMLButtonElement;
-  btnConfigs: HTMLButtonElement;
-  btnPomo: HTMLSpanElement;
-  btnShort: HTMLSpanElement;
-  btnLong: HTMLSpanElement;
-};
+export default interface IPomodoro {
+  toggletimer(): void;
+  changetimerState(state: IStateArgs): void;
+  changeStateHandler(state: IStateArgs): void;
+}

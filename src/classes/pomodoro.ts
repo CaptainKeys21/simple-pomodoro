@@ -1,13 +1,20 @@
-import { IStateArgs } from '../types/states';
+import ISettings from '../types/ISettings';
 import Settings from './settings';
+
+import IState, { IStateArgs } from '../types/IStates';
 import State from './state';
+
+import Itimer from '../types/Itimer';
 import timer from './timer';
 
-export class Pomodoro {
-  private readonly _timer: timer;
+import IPomodoro from '../types/IPomodoro';
+import { ipcRenderer } from 'electron';
+
+export default class Pomodoro implements IPomodoro {
+  private readonly _timer: Itimer;
   private readonly btnMain: HTMLButtonElement;
-  private readonly settings: Settings;
-  private readonly _state: State;
+  private readonly settings: ISettings;
+  private readonly _state: IState;
   private pomoCount = 0;
   private shortCount = 0;
   private longCount = 0;
@@ -17,6 +24,7 @@ export class Pomodoro {
     this._state = new State();
     this.btnMain = document.getElementById('btn-main-toggle') as HTMLButtonElement;
     this.addEvents();
+    this.addIpcRender();
   }
 
   private addEvents(): void {
@@ -37,6 +45,24 @@ export class Pomodoro {
     });
   }
 
+  private addIpcRender(): void {
+    ipcRenderer.on('toggle-timer', () => {
+      this.toggletimer();
+    });
+    ipcRenderer.on('toggle-pomo', (_event, value) => {
+      this.changetimerState(value);
+      this.changeStateHandler(value);
+    });
+    ipcRenderer.on('toggle-short', (_event, value) => {
+      this.changetimerState(value);
+      this.changeStateHandler(value);
+    });
+    ipcRenderer.on('toggle-long', (_event, value) => {
+      this.changetimerState(value);
+      this.changeStateHandler(value);
+    });
+  }
+
   public toggletimer(): void {
     if (this._timer.isRunning) {
       this.btnMain.innerText = 'Continuar';
@@ -49,7 +75,7 @@ export class Pomodoro {
     }
   }
 
-  public changetimerState(state: string) {
+  public changetimerState(state: IStateArgs) {
     switch (state) {
       case 'pomodoro': {
         this._timer.time = this.settings.timePomo;

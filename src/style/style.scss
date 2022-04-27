@@ -16,15 +16,32 @@ body {
 #control-bar {
   -webkit-app-region: drag;
   width: 100%;
-  height: 24px;
+  height: 30px;
   background-color: #333333;
   display: flex;
-  flex-direction: row-reverse;
+
+  & span {
+    font-weight: bolder;
+    margin: {
+      left: 1rem;
+      right: auto;
+      bottom: auto;
+      top: auto;
+    };
+  }
+
   & #control-Bar-Buttons {
     margin-right: 1rem;
-
+    -webkit-app-region: no-drag;
+    padding: {
+      top: 2px;
+    };
     & button {
-      -webkit-app-region: no-drag;
+      width: 20px;
+      height: 20px;
+      & img {
+        filter: invert(1);
+      }
     }
   }
 }

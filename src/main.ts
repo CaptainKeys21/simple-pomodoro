@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, nativeImage, Tray } from 'electron';
+import { app, BrowserWindow, ipcMain, Menu, nativeImage, Tray } from 'electron';
 import path from 'path';
 
 const createWindow = (): BrowserWindow => {
@@ -43,8 +43,16 @@ app.whenReady().then(() => {
   tray.setToolTip('Simple Pomodoro');
   tray.setContextMenu(contextMenu);
 
+  ipcMain.on('btnClose', () => {
+    mainWindow.hide();
+  });
+
+  ipcMain.on('btnMinimize', () => {
+    mainWindow.minimize();
+  });
+
   tray.addListener('double-click', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    mainWindow.show();
   });
 
   app.on('activate', () => {

@@ -1,4 +1,4 @@
-import { IStateArgs } from '../types/states';
+import IState, { IStateArgs } from '../types/IStates';
 
 interface IUpperButtons {
   btnPomo: HTMLSpanElement;
@@ -6,7 +6,7 @@ interface IUpperButtons {
   btnShort: HTMLSpanElement;
 }
 
-export default class State {
+export default class State implements IState {
   private _state: IStateArgs = 'pomodoro';
   private readonly _body: HTMLBodyElement;
   private readonly upperButtons: IUpperButtons;
@@ -35,14 +35,14 @@ export default class State {
     }
   }
 
-  set state(state: IStateArgs) {
+  set state(state) {
     this._state = state;
     this.changeButtonSelected(state);
     this._body.id = this._state;
     document.dispatchEvent(new CustomEvent<string>('onStateChange', { detail: this._state }));
   }
 
-  get state(): IStateArgs {
+  get state() {
     return this._state;
   }
 }
