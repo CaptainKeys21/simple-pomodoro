@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, Menu, nativeImage, Tray } from 'electron';
+import { app, BrowserWindow, ipcMain, Menu, NativeImage, nativeImage, Notification, Tray } from 'electron';
 import path from 'path';
 
 const createWindow = (): BrowserWindow => {
@@ -16,6 +16,14 @@ const createWindow = (): BrowserWindow => {
   mainWindow.loadFile(path.resolve(__dirname, 'index.html'));
 
   return mainWindow;
+};
+
+const createNotifications = (icon: NativeImage): Array<Notification> => {
+  const notiPomo = new Notification({ title: 'Foco Iniciado!', icon: icon });
+  const notiShort = new Notification({ title: 'Pausa Curta!', icon: icon });
+  const notiLong = new Notification({ title: 'Pausa Longa!', icon: icon });
+
+  return [notiPomo, notiShort, notiLong];
 };
 
 app.whenReady().then(() => {
@@ -39,6 +47,12 @@ app.whenReady().then(() => {
       },
     },
   ]);
+
+  const [notiPomo, notiShort, notiLong] = createNotifications(icon);
+
+  ipcMain.on('changePomo', () => notiPomo.show());
+  ipcMain.on('changeShort', () => notiShort.show());
+  ipcMain.on('changeLong', () => notiLong.show());
 
   tray.setToolTip('Simple Pomodoro');
   tray.setContextMenu(contextMenu);

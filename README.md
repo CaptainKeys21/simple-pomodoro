@@ -15,4 +15,4 @@ Feito com typescript, sass e electron.
 - Menu de configurações; :heavy_check_mark:
 - Barra de título customizada; :heavy_check_mark:
 - Execução em Segundo plano; :heavy_check_mark:
-- Notificações em segundo plano;
+- Notificações em segundo plano; :heavy_check_mark:

@@ -103,16 +103,19 @@ export default class Pomodoro implements IPomodoro {
       if (this.pomoCount % 4 === 0) {
         this._state.state = 'longRest';
         this.changetimerState(this._state.state);
+        ipcRenderer.send('changeLong');
         this._timer.timerStart();
       } else {
         this._state.state = 'shortRest';
         this.changetimerState(this._state.state);
+        ipcRenderer.send('changeShort');
         this._timer.timerStart();
       }
     } else {
       this._state.state === 'longRest' ? this.longCount++ : this.shortCount++;
       this._state.state = 'pomodoro';
       this.changetimerState(this._state.state);
+      ipcRenderer.send('changePomo');
       this._timer.timerStart();
     }
   }
