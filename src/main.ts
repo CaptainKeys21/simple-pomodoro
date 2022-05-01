@@ -14,6 +14,7 @@ const createWindow = (): BrowserWindow => {
   });
 
   mainWindow.loadFile(path.resolve(__dirname, 'index.html'));
+  mainWindow.setIcon(path.resolve(__dirname, 'images', 'Icon.png'));
 
   return mainWindow;
 };
@@ -27,6 +28,9 @@ const createNotifications = (icon: NativeImage): Array<Notification> => {
 };
 
 app.whenReady().then(() => {
+  if (process.platform == 'win32') {
+    app.setAppUserModelId('Simple Pomodoro');
+  }
   const mainWindow = createWindow();
 
   const icon = nativeImage.createFromPath(path.resolve(__dirname, 'images', 'Icon.png'));

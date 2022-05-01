@@ -1,17 +1,24 @@
 {
-  "name": "electron-ts-sass-boilerplate",
+  "name": "simple_pomodoro",
   "version": "1.0.0",
-  "description": "A simple, open source, music player",
+  "description": "A simple, open source, pomodoro",
   "main": "build/main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "electron-forge start",
     "build": "tsc && cp -fu ./src/index.html ./build && sass src/style:build/style",
     "predev": "cp -fur ./src/images ./build",
-    "dev": "tsc --watch & sass --watch src/style:build/style & chokidar '**/*.html'  -c 'cp -fu ./src/index.html ./build'"
+    "dev": "tsc --watch & sass --watch src/style:build/style & chokidar '**/*.html'  -c 'cp -fu ./src/index.html ./build'",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
-  "author": "Captain Keys",
+  "author": "Captain_Keys",
   "license": "MIT",
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.63",
+    "@electron-forge/maker-deb": "^6.0.0-beta.63",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.63",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
+    "@electron-forge/maker-zip": "^6.0.0-beta.63",
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",
     "chokidar-cli": "^3.0.0",
@@ -22,5 +29,21 @@
     "prettier": "^2.6.2",
     "sass": "^1.49.11",
     "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "simple_pomodoro"
+          }
+        }
+      ]
+    }
   }
 }
